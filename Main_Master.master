@@ -1,0 +1,338 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main_Master.master.cs" Inherits="Main_Master" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="#" />
+    <meta http-equiv="X-UA-TextLayoutMetrics" content="gdi" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/chocolat.css" rel="stylesheet" type="text/css" />
+    <link href="css/css_002.css" rel="stylesheet" type="text/css" />
+    <link href="css/css.css" rel="stylesheet" type="text/css" />
+    <link href="css/pests.css" rel="stylesheet" type="text/css" />
+    <link href="css/product-detail.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' />
+    <!-- //fonts -->
+    <!-- start-smoth-scrolling -->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <style>
+        .terms
+        {
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <form runat="server" id="f1">
+        <%-- <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>--%>
+        <!-- header -->
+        <header>
+    <div class="header">
+        <div class="home-header">
+            <div class="container">
+                <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="logo">
+                    <a href="#">
+                        <img src="images/logo.png" alt="image">
+                    </a>
+                </div>
+				</div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">    
+                  <div class="top-header">
+
+                      <ul class="top-header-ul">
+                          <li><asp:LinkButton ID="lnklogin" runat="server" OnClick="lnklogin_Click">Login </asp:LinkButton></li> 
+
+                          <li class="userdiv"><asp:Label ID="Label1" runat="server"  CssClass="dropdown"></asp:Label>
+                                         
+                                    <div class="userdiv-content">
+                                        <div class="userdiv-content-box">
+                                            <ul>
+                                        <li><asp:LinkButton ID="lnkprofile" runat="server" OnClick="lnkprofile_Click">Edit Profile</asp:LinkButton></li>
+                                        <li><a href="ChangePassword.aspx">Change Password</a></li>
+                                                  <li><a href="ViewAddress.aspx">Address Book</a></li>
+                                                <li><a href="UserOrderList.aspx">Orders</a></li>
+                                         <li><asp:LinkButton ID="lnklout" runat="server" OnClick="lnklout_Click">LogOut</asp:LinkButton></li>
+                                                </ul>
+                                      </div>
+                               </div>
+                          </li> 
+                                                                       
+                          <li>Call Us :<a href="tel:+91 8320494346">+91 8320494346</a></li>
+                          <li class="shopping-top" id="cart" runat="server"><a href="javascript:void(0)">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> Cart
+                                </a>
+
+ <div class="mini-shopping-cart">
+    <div class="mini-shopping-box">
+        <div class="minicart-items-top" id="countdiv" runat="server">
+                <div class="padding-left-right">
+                    <p>
+                        There are <a href="ViewCart.aspx"><asp:Label ID="Countproduct" runat="server"></asp:Label> item(s)</a> in your cart.
+                    </p>
+                </div>
+        </div>
+        <asp:Repeater ID="rptcartlist" runat="server">
+            <ItemTemplate>
+                  
+                  <div class="border-bottom">
+                       <div class="col-xs-4">
+                           <asp:HiddenField ID="lblproid" runat="server" Value='<%#Eval("ProductID") %>' />
+                            <asp:HiddenField ID="hdnstock" runat="server" Value='<%#Eval("AvailableStock") %>' Visible="false" />
+                           <asp:HiddenField ID="hdnproduct" runat="server" Value='<%#Eval("Product_Name") %>' Visible="false" />
+                            <a href="<%# Eval("ProductID","ProductDetails.aspx?id={0}") %>" title="">
+                                 <img src='<%#"Product/"+Eval("Product_Image") %>' class="img-responsive"/>
+                                                            </a>
+                    </div>
+                       <div class="col-xs-8">
+                        <p>
+                            <a href="<%# Eval("ProductID","ProductDetails.aspx?id={0}") %>"><%#Eval("Product_Name") %></a>
+                        </p>
+                        <p><span class="">Unit price:</span> <span><asp:Label ID="lblprice" runat="server" Text='<%#Eval("Price") %>'></asp:Label></span></p>
+                        <p><span class="">Quantity:</span> <span><asp:Label ID="lblqty" runat="server" Text='<%#Eval("MaxQuantity") %>'></asp:Label></span></p>
+                    </div>
+                     </div>
+            </ItemTemplate>
+            <FooterTemplate>
+                 <div class="border-bottom">
+                <div class="padding-left-right"><p>Sub-Total: &#8377; <strong><asp:Label ID="lbltotal" runat="server"></asp:Label></strong></p></div>
+            </div>
+            </FooterTemplate>
+        </asp:Repeater>
+
+         <div class="border-bottom text-center" style="border-bottom: 0;padding-bottom:0px;padding-left: 15px;">
+             <asp:Button id="btnGotoCart" runat="server" Text="Go to Cart"  CssClass="btn-details" OnClick="btnGotoCart_Click"/> 
+           <p><asp:Label ID="lblMessage" runat="server" Visible="false"></asp:Label></p>
+            
+    </div>
+        </div>   
+     </div>
+
+                          </li>
+                      </ul>
+
+                </div>
+            </div>
+                </div>
+                </div>
+        </div>
+		
+		<!-- navigation -->
+    <div class="navigation">
+        <div class="container">
+            
+            <nav class="navbar navbar-default">
+		 
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			<span class="menu-text">Navigation</span>
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+               
+			<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                 <ul class="nav navbar-nav main-menu">
+					<li class='<%="hvr-bounce-to-bottom "+home %>'><a href="Default.aspx">Home <span class="sr-only">(current)</span></a></li>
+					<li class='<%="hvr-bounce-to-bottom "+about %>'><a href="Aboutus.aspx">About us </a></li>
+					<li class='<%="hvr-bounce-to-bottom "+product %>'><a href="#">Products</a>
+                    <asp:Repeater ID="rptCat" runat="server">
+                    <HeaderTemplate>
+                        <ul class="sub-menu">
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <li>
+                            <a href='<%#"Product.aspx?id="+Eval("Category_ID")%>'><%#Eval("Category_Name")%> </a>
+                        </li>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </ul>
+                    </FooterTemplate>
+                    </asp:Repeater>
+					</li>
+						<%--<li class='<%="hvr-bounce-to-bottom "+news %>'><a href="News.aspx">News</a></li>--%>
+                    <li class='<%="hvr-bounce-to-bottom "+career %>'><a href="Career.aspx">Career</a></li>
+                     <li class='<%="hvr-bounce-to-bottom "+gallery %>'><a href="Gallery.aspx">Gallery</a></li>
+                      <li class='<%="hvr-bounce-to-bottom "+contact %>'><a href="Contact-Us.aspx">Contact Us</a></li>
+                       <li class='<%="hvr-bounce-to-bottom "+inquiry %>'><a href="Inquiry.aspx">Inquiry </a></li>
+                    <li class='<%="hvr-bounce-to-bottom"+register %>'><a href="Registration.aspx" id="lnkregister" runat="server">VA Register </a></li>
+                        <li class='<%="hvr-bounce-to-bottom "+download %>' id="lnkdownload" runat="server" visible="false"><a href="Download.aspx">Downloads</a></li>
+				  </ul>	
+			  <div class="clearfix"></div>
+			</div><!-- /.navbar-collapse -->
+		</nav>
+                
+        </div>
+    </div>
+    <!-- //navigation -->
+    </div>
+	<!-- //header -->
+	</header>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        <!-- footer -->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12" style="top: 0px;">
+                        <div class="ftr-grd">
+                            <ul class="ftr-list">
+                                <li class="hvr-bounce-to-bottom"><a href="Default.aspx">Home |<span class="sr-only">(current)</span></a></li>
+                                <li class="hvr-bounce-to-bottom  active"><a href="Aboutus.aspx">About us |</a></li>
+                                <%--<li class="hvr-bounce-to-bottom"><a href="product.html">Products |</a></li>--%>
+                                
+                                <li class="hvr-bounce-to-bottom "><a href="Career.aspx">Career |</a></li>
+                                <li class="hvr-bounce-to-bottom"><a href="Gallery.aspx">Gallery |</a></li>
+                                <li class="hvr-bounce-to-bottom"><a href="Contact-Us.aspx">Contact Us |</a></li>
+                                <li class="hvr-bounce-to-bottom"><a href="Inquiry.aspx">Inquiry |</a></li>
+                                <li class="hvr-bounce-to-bottom" id="lkdownload" runat="server" visible="false"><a href="Download.aspx">Downloads </a></li>
+                            </ul>
+                            <div class="ftr-grd social-link">
+
+                                <ul>
+                                    <li><a href="https://www.facebook.com/Vedmurti-corporation-850615471727022/"><span class="fa"></span></a></li>
+                                    <li><a href="https://twitter.com/Vedmurticorpo"><span class="tw"></span></a></li>
+
+                                    <li><a href="https://linkedin.com/in/vedmurticorporation"><span class="in"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 copy-right">
+                        <p class="copy-company"> <a href="TermsConditions.aspx" class="terms">Terms & Conditions </a>| © 2017 Bexcode Services. All rights reserved </p>
+                        <p class="design-name"><a href="http://www.bexcodeservices.com" target="_blank">Design & Developed by BexcodeService </a></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="spinner" style="display: none;">
+        </div>
+
+        <!---->
+        <!-- smooth scrolling -->
+        <%--    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+	        var defaults = {
+	        containerID: 'toTop', // fading element id
+	        containerHoverID: 'toTopHover', // fading element hover id
+	        scrollSpeed: 1200,
+	        easingType: 'linear' 
+	        };
+	        */
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+	</script>--%>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a></div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <%--<script src="js/jquery-2.2.3.min.js"  type="text/javascript"></script>--%>
+        <script type="text/javascript" src="js/move-top.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear' 
+                };
+                */
+                $().UItoTop({ easingType: 'easeOutQuart' });
+            });
+        </script>
+
+        <!-- //smooth scrolling -->
+        <!-- //footer -->
+
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/responsiveCarousel.min.js"></script>
+
+
+        <script src="js/responsiveslides.js" type="text/javascript"></script>
+
+        <script src="js/lightbox.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            // You can also use "$(window).load(function() {"
+            $(function () {
+
+                // Slideshow 3
+                $("#slider3").responsiveSlides({
+                    auto: true,
+                    pager: false,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function () {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function () {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $('.crsl-items').carousel({
+                    visible: 3,
+                    itemMinWidth: 300,
+                    itemEqualHeight: 370,
+                    itemMargin: 25,
+                });
+
+                //$("a[href=#]").on('click', function (e) {
+                //    debugger;
+                //    e.preventDefault();
+                //});
+            });
+        </script>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".button-read1").on("touchstart", function (event) {
+                    window.location.href = $(event.target).attr('href');
+                });
+            });
+
+        </script>
+
+    </form>
+
+</body>
+</html>
+

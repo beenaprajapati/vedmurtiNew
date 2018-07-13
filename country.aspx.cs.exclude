@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Configurations;
+using DataLayer;
+using System.Data;
+public partial class country : System.Web.UI.Page
+{
+    Config config = new Config();
+    DataHelper helper = new DataHelper();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if(!IsPostBack)
+        {
+            GetAllCountry();
+        }
+    }
+     public void GetAllCountry()
+    {
+        DataSet ds = new DataSet();
+        ds.Reset();
+        ds = config.GetCounty();
+        if (ds.Tables.Count > 0)
+        {
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                ddlcountry.DataSource = ds.Tables[0];
+                ddlcountry.DataTextField = "CountryName";
+                ddlcountry.DataValueField = "CountryID";
+                ddlcountry.DataBind();
+                ddlcountry.Items.Insert(0, new ListItem("--Select--", string.Empty));
+                //if (hdnCountryID.Value != "")
+                //{
+                //    ddlcountry.SelectedIndex = ddlcountry.Items.IndexOf(ddlcountry.Items.FindByValue(hdnCountryID.Value));
+                //}
+            }
+            //if (ds.Tables[0].Rows.Count == 0)
+            //{
+            //    DropDownList1.DataSource = "";
+
+            //}
+        }
+    }
+     public void GetAllState()
+     {
+         try
+         {
+             DataSet ds = new DataSet();
+             ds.Reset();
+             ds = config.GetState(ddlcountry.SelectedItem.Value);
+             if (ds.Tables.Count > 0)
+             {
+                 if (ds.Tables[0].Rows.Count > 0)
+                 {
+                     ddlstate.DataSource = ds.Tables[0];
+                     ddlstate.DataTextField = "StateName";
+                     ddlstate.DataValueField = "StateID";
+                     ddlstate.DataBind();
+                     ddlstate.Items.Insert(0, new ListItem("--Select--", string.Empty));
+                 }
+                 if (ds.Tables[0].Rows.Count == 0)
+                 {
+                     ddlstate.DataSource = "";
+
+                     ddlstate.DataBind();
+                     ddlstate.Items.Insert(0, new ListItem("--Select--", string.Empty));
+                 }
+             }
+         }
+         catch (Exception ex)
+         {
+         }
+
+     }
+  
+     protected void ddlcountry_SelectedIndexChanged(object sender, EventArgs e)
+     {
+ GetAllState();
+     }
+}
